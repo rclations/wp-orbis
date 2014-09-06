@@ -69,6 +69,26 @@ module.exports = function( grunt ) {
 					type: 'wp-plugin'
 				}
 			}
+		},
+		
+		// Copy
+		copy: {
+			main: {
+				files: [
+					{ // AngularJS
+						expand: true,
+						cwd: 'bower_components/angular',
+						src: [ 'angular-csp.css', 'angular.js', 'angular.min.js', 'angular.min.js.map' ],
+						dest: 'assets/angular'
+					},
+					{ // Select2
+						expand: true,
+						cwd: 'bower_components/select2',
+						src: [ 'select2.js', 'select2.css', 'select2-bootstrap.css', 'select2-spinner.gif', 'select2.png', 'select2x2.png' ],
+						dest: 'assets/select2'
+					},
+				]
+			}
 		}
 	} );
 
@@ -77,8 +97,12 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-phpmd' );
 	grunt.loadNpmTasks( 'grunt-checkwpversion' );
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
+	grunt.loadNpmTasks( 'grunt-contrib-concat' );
+	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 
 	// Default task(s).
-	grunt.registerTask( 'default', [ 'phpcs', 'phplint', 'phpmd', 'checkwpversion' ] );
+	grunt.registerTask( 'default', [ 'phplint', 'phpmd', 'checkwpversion', 'copy' ] );
 	grunt.registerTask( 'pot', [ 'makepot' ] );
 };
